@@ -3,10 +3,11 @@ Modules use for writing python programs
 
 
 ### logging_class
-#### Version 1.0.1
+#### Version 1.1.0
+`name` set the logging file name, `directory` set logging file placement  
 Logging class for use in other python programs
 
-    PersonalLog(name)
+    PersonalLog(name, [directory])
     PersonalLog.debug(message)
     PersonalLog.info(message)
     PersonalLog.warning(message)
