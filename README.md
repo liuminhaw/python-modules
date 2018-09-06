@@ -16,8 +16,9 @@ Logging class for use in other python programs
 
 
 ### user_agent_class
-#### Version 1.1.0
-User-agent header for web scraping
+#### Version 2.0.0
+User-agent header for web scraping  
+- Remove logging class
 
 ##### UserAgent.random_computer()
 Randomly return an user-agent value that is used by computer
