@@ -49,3 +49,13 @@ Module for file and directory
 
     File.file_exist()
     File.format_check(formats)
+
+
+### url_collections
+#### Version 0.1.0
+Collection of url functions
+
+    extract_images(input_file)
+
+    download_image(url, target_path, [header=None])
+    download_images(urls, target_directory, [header=None])
