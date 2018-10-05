@@ -52,7 +52,7 @@ Module for file and directory
 
 
 ### url_collections
-#### Version 0.1.0
+#### Version 0.1.1
 Collection of url functions
 
     extract_images(input_file)
