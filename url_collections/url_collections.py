@@ -4,7 +4,7 @@ Program:
 Author:
     haw
 Version:
-    0.1.1
+    0.1.2
 """
 
 import os, re
@@ -97,6 +97,7 @@ def download_images(urls, target_directory, header=None):
                 print('Download index {:>3} - URL {} success'.format(index, url))
                 break
         else:
+            print('Download index {:>3} - URL {} exceed attempt limit'.format(index, url))
             errors.append('Index {:>3} exceed request attempt limit: {}'.format(index, url))
 
     return errors
