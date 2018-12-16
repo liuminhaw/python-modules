@@ -4,7 +4,7 @@ Program:
 Author:
     haw
 Version:
-    2.0.0
+    2.1.0
 """
 
 import sys, random
@@ -15,6 +15,8 @@ from datetime import datetime
 
 URL_COMPUTER = 'https://developers.whatismybrowser.com/useragents/explore/hardware_type_specific/computer/'
 URL_PHONE = 'https://developers.whatismybrowser.com/useragents/explore/hardware_type_specific/phone/'
+URL_FIREFOX = 'https://developers.whatismybrowser.com/useragents/explore/software_name/firefox/'
+URL_CHROME = 'https://developers.whatismybrowser.com/useragents/explore/software_name/chrome/'
 
 SELECTOR = 'td.useragent a'
 
@@ -41,6 +43,20 @@ class UserAgent():
         """
         return self._load_random(URL_PHONE)
 
+    def random_firefox(self):
+        """
+        Sucess: Return a random user-agent
+        Failed: Return an empty list
+        """
+        return self._load_random(URL_FIREFOX)
+
+    def random_chrome(self):
+        """
+        Success: Return a random user-agent
+        Failed: Return an empty list
+        """
+        return self._load_random(URL_CHROME)
+
     def write_computer(self):
         self._filename = 'user_agents-computer-' + datetime.now().strftime('%Y%m%d')
         self._write_file(URL_COMPUTER)
@@ -48,6 +64,14 @@ class UserAgent():
     def write_phone(self):
         self._filename = 'user_agents-phone-' + datetime.now().strftime('%Y%m%d')
         self._write_file(URL_PHONE)
+
+    def write_firefox(self):
+        self._filename = 'user_agents-firefox-' + datetime.now().strftime('%Y%m%d')
+        self._write_file(URL_FIREFOX)
+
+    def write_chrome(self):
+        self._filename = 'user_agents-chrome-' + datetime.now().strftime('%Y%m%d')
+        self._write_file(URL_CHROME)
 
 
     def _load_random(self, url):
@@ -105,6 +129,10 @@ if __name__ == '__main__':
 
     print(test.random_computer())
     print(test.random_phone())
+    print(test.random_firefox())
+    print(test.random_chrome())
 
     test.write_computer()
     test.write_phone()
+    test.write_firefox()
+    test.write_chrome()
