@@ -4,20 +4,32 @@ Program:
 Author:
     haw
 Version:
-    0.1.3
+    0.2
+Note:
+    Version 0.2 change _image_request parameter: header
+    Not compatible with previous Version 0.1.X
 """
 
 import os, re
 import html, collections, hashlib
-import time, datetime
+import time, datetime, random
 
 import requests
 
 
-def extract_images(input_file, duplicates=False):
+def extract_images(input_file, duplicates=False, extension=True):
     """
     Extract each image url from input_file.
 
+    duplicates:
+        False - Return a list of urls with no duplicates
+        True - Return a list of urls with duplicates
+    extension:
+        False - Extract urls that start with http / https only
+        True - Extract urls that start with http / https and ends with image extension
+
+    Image Extension:
+        jpg, jpeg, png
     Return:
         A list of urls
     Error:
@@ -25,7 +37,10 @@ def extract_images(input_file, duplicates=False):
     """
 
     # Image url regular expression
-    URL_REGEX = r'((http)(s)?(\S)*(\.jpg|\.jpeg|\.png))'
+    if extension:
+        URL_REGEX = r'((http)(s)?(\S)*(\.jpg|\.jpeg|\.png))'
+    else:
+        URL_REGEX = r'((http)(s)?(\S)*)'
     url_regex = re.compile(URL_REGEX, re.IGNORECASE)
 
     # Extract urls
@@ -68,10 +83,16 @@ def download_image(url, target_path, header=None):
         urlError - Raised if image request failed
     """
     # Request for image file
-    try:
-        img_request = _image_request(url, header)
-    except RuntimeError:
-        raise urlError('Request for image {} failed'.format(url))
+    print('Header: {}'.format(header))
+    for _ in range(5):
+        try:
+            print('Request URL: {}'.format(url))
+            img_request = _image_request(url, header)
+            break
+        except RuntimeError:
+            time.sleep(1)
+    else:
+        raise ReferenceError('Request for image {} failed'.format(url))
 
     # Write image to file_path
     _image_write(img_request, target_path)
@@ -106,6 +127,7 @@ def download_images(urls, target_directory, header=None):
         else:
             print('Download index {:>3} - URL {} exceed attempt limit'.format(index, url))
             errors.append('Index {:>3} exceed request attempt limit: {}'.format(index, url))
+        time.sleep(random.uniform(1, 2.5))
 
     return errors
 
@@ -122,14 +144,17 @@ def _image_request(url, header=None):
     """
     # Request for image
     if header:
-        image_request = requests.get(url, headers={'User-Agent': header})
+        print('Run with header')
+        image_request = requests.get(url, headers=header)
     else:
+        print('Run without header')
         image_request = requests.get(url)
 
     # Check status code
-    if image_request.status_code == requests.codes.ok:
+    if image_request.status_code == 200:
         return image_request
     else:
+        print('Respond Code: {}'.format(image_request.status_code))
         raise RuntimeError('Request for image failed')
 
 
@@ -145,7 +170,7 @@ def _image_write(image, file_path):
     """
     try:
         with open(file_path, mode='wb') as file:
-            for chunk in image.iter_content(10000):
+            for chunk in image:
                 file.write(chunk)
     except FileNotFoundError as err:
         print('Write file error {}: {}'.format(err.errno, err.strerror))

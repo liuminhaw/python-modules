@@ -74,12 +74,17 @@ Module for file and directory
 
 
 ### url_collections
+#### Version 0.2
+- Not compatible with previous version v0.1.x
+- Change `_image_request` function parameter `header`
+- `extract_image` add parameter `extension`
+
 #### Version 0.1.3
 - Add duplicates option to extract_images function
 
 Collection of url functions
 
-    extract_images(input_file, [duplicates=False])
+    extract_images(input_file, [duplicates=False], [extension=True])
 
     download_image(url, target_path, [header=None])
     download_images(urls, target_directory, [header=None])
