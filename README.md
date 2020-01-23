@@ -3,11 +3,13 @@ Modules use for writing python programs
 
 
 ### logging_class
-#### Version 1.1.0
-`name` set the logging file name, `directory` set logging file placement  
+#### Version 1.2.0
+- `name` set the logging file name
+- `directory` set logging file placement (Optional)
+- `frequency` set logging file rotate frequency (Optional) 
 Logging class for use in other python programs
 
-    PersonalLog(name, [directory])
+    PersonalLog(name, [directory='LOG_PATH'], [frequency=month|day])
     PersonalLog.debug(message)
     PersonalLog.info(message)
     PersonalLog.warning(message)
@@ -74,7 +76,7 @@ Module for file and directory
 
 
 ### url_collections
-#### Version 0.2
+#### Version 0.2.0
 - Not compatible with previous version v0.1.x
 - Change `_image_request` function parameter `header`
 - `extract_image` add parameter `extension`
