@@ -3,6 +3,10 @@ Modules use for writing python programs
 
 
 ### logging_class
+
+#### Version 1.2.1
+- fix coding style with `pylint`
+
 #### Version 1.2.0
 - `name` set the logging file name
 - `directory` set logging file placement (Optional)
